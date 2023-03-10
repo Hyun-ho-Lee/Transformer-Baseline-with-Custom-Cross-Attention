@@ -24,7 +24,7 @@ Xai Module을 활용하여 중요 감성에 집중한 Seq2Seq 모델로서
 
                 self.layers = nn.ModuleList([DecoderLayer(self.config) for _ in range(self.config.n_layer)])
 
-            def forward(self, dec_inputs, enc_inputs, enc_outputs,shap_inputs=None,random_mask=None):
+            def forward(self, dec_inputs, enc_inputs, enc_outputs,shap_inputs=None,random_mask=None): # If Using Random masking Module, Encoder input replace Shap input 
                 positions = torch.arange(dec_inputs.size(1), device=dec_inputs.device, dtype=dec_inputs.dtype).expand(dec_inputs.size(0), dec_inputs.size(1)).contiguous() + 1
                 pos_mask = dec_inputs.eq(self.config.i_pad)
                 positions.masked_fill_(pos_mask, 0)
